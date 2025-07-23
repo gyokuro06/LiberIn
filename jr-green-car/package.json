@@ -1,0 +1,26 @@
+{
+  "name": "jr-green-car",
+  "version": "1.0.0",
+  "description": "easy to collect JR-east green car's invoices",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["jr", "green-car", "typescript", "vitest", "selenium"],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.6.1",
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "@types/selenium-webdriver": "^4.1.28",
+    "@vitest/ui": "^3.2.4",
+    "selenium-webdriver": "^4.34.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
