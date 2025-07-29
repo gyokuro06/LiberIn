@@ -1,77 +1,69 @@
-# JR Green Car Project
+# React + TypeScript + Vite
 
-JR グリーン車に関する TypeScript プロジェクトです。このプロジェクトでは Vitest でのテスト、Selenium での Web テストを含んでいます。
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 技術スタック
+Currently, two official plugins are available:
 
-- **TypeScript**: 型安全な JavaScript
-- **Vitest**: 高速なテストフレームワーク
-- **Selenium**: Web アプリケーションの自動テスト
-- **pnpm**: 高速なパッケージマネージャー
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## セットアップ
+## Expanding the ESLint configuration
 
-### 前提条件
-- Node.js (v18 以上)
-- pnpm
-- Chrome ブラウザ（Selenium テスト用）
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-### インストール
+```js
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-```bash
-# 依存関係をインストール
-pnpm install
+      // Remove tseslint.configs.recommended and replace with this
+      ...tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      ...tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      ...tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-## スクリプト
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```bash
-# 開発モード（TypeScript の監視）
-pnpm dev
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-# TypeScript のビルド
-pnpm build
-
-# テストの実行（監視モード）
-pnpm test
-
-# テストの一回実行
-pnpm test:run
-
-# テスト UI の起動
-pnpm test:ui
-
-# カバレッジ付きテスト実行
-pnpm test:coverage
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-## プロジェクト構造
-
-```
-jr-green-car/
-├── src/
-│   └── index.ts          # メインのソースコード
-├── tests/
-│   ├── basic.test.ts     # 基本的な単体テスト
-│   └── selenium.test.ts  # Selenium Web テスト
-├── package.json
-├── tsconfig.json         # TypeScript 設定
-├── vitest.config.ts      # Vitest 設定
-└── README.md
-```
-
-## 機能
-
-### グリーン車サービス
-- 乗客の挨拶機能
-- グリーン車料金計算
-- 乗客管理サービス
-
-### テスト
-- **単体テスト**: 基本的な機能のテスト
-- **Web テスト**: Selenium を使用した Web サイトのテスト
-
-## 注意事項
-
-- Selenium テストを実行するには Chrome ブラウザがインストールされている必要があります
-- CI/CD 環境では Chrome ドライバーの設定が必要な場合があります
